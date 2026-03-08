@@ -20,7 +20,7 @@ module memory #(
 */ 
 reg [31:0] mem [0:WORDS-1]; //memory array of 64 words, 32  bits.
 
-//num of bits needed to index memory
+//num of bits needed to index memory (6 bits)
 localparam INDEX_BITS = $clog2(WORDS);
 
 always @ (posedge clk) begin
