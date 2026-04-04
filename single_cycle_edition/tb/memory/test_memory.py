@@ -24,7 +24,7 @@ async def memory_data_test(dut):
     # everything 0 after reset
     for address in range(dut.WORDS.value):
         dut.address.value = address
-        await Timer(1, units="ns")
+        await Timer(1, unit="ns")
         assert dut.read_data.value == "00000000000000000000000000000000"
 
     # test: write and read back random data
