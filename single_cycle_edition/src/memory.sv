@@ -1,7 +1,8 @@
 //memory.sv
 
 module memory #(
-	parameter WORDS = 64
+	parameter WORDS = 64,
+	parameter mem_init = ""
 ) (
 	input logic clk,
 	input logic [31:0] address,
@@ -17,10 +18,11 @@ module memory #(
  the memory declaration below is byte addressed
  no support for mis-aligned write nor reads.
 */ 
-reg [31:0] mem [WORDS-1:0]; //memory array of 64 words, 32  bits.
+reg [31:0] mem [0:WORDS-1]; //memory array of 64 words, 32  bits.
 
-//num of bits needed to index memory (6 bits)
-localparam INDEX_BITS = $clog2(WORDS);
+initial begin
+	$readmemh(mem_init, mem);
+end
 
 always @ (posedge clk) begin
 	//reset logic
@@ -29,12 +31,13 @@ always @ (posedge clk) begin
 			mem[i] <= 32'b0;
 		end
 	end
-	else if(write_enable) begin
-		//ensure address is aligned to word boundary
+	else if(write_enable == 1'b1) begin
+		//ensure address is aligned to word boundary ( last 2 bits are
+		//useless i guess)
 		//else, ignore the write
 		
 		if(address[1:0] == 2'b00) begin
-			//force truncate
+			//force truncate (<= is non-blocking [sequential])
 
 			/* verilator lint_off WIDTHTRUNC */ 
 			mem[address[31:2]] <= write_data;
@@ -42,10 +45,11 @@ always @ (posedge clk) begin
 	end
 end
 
-//read logic
+/**
+* runs when input changes (write_enable changes)
+*/
 always_comb begin
-	//here, address[31:2] is the word index/
-	
+	//force truncate	
 	/* verilator lint_off WIDTHTRUNC */
 	read_data = mem[address[31:2]];
 end
