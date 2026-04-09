@@ -18,8 +18,8 @@ module control (
 
 logic [1:0] alu_op;
 always_comb begin
+	//opcode -> decode instruction
 	case(op)
-	//LW -> load word?
 		7'b0000011 : begin
 			reg_write =1'b1;
 			imm_source = 2'b00;
@@ -36,6 +36,10 @@ always_comb begin
 		end
 	endcase
 end
+
+/**
+* ALU DECODER
+*/
 
 always_comb begin
 	case(alu_op)
