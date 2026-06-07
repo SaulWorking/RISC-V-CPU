@@ -1,0 +1,72 @@
+- source: https://docs.riscv.org/reference/isa/unpriv/intro.html
+
+- volume 1 ( the current one im reading) 6/7/26 covers the DESIGN of the base _underprvileged_ instructions
+# what is RISC-V?
+- (ISA) instruction set architecture, suitable for direct native hardware implementation
+- has 32-bit and 64-bit address space for applications + hardware implementation + OS kernels (OS apps?)
+- ## RISC-V hardware platform terminology
+	- contains >=1 RISC-V compatible processing cores w/ non-RISC-V-compatible cores
+	- a component is a __core__ if it contains an independent instruction fetch unit.
+		- A RISC-V compatible core might support multiple RISC-V compatible hardware threads
+		- __HART__
+			- hardware thread
+		- __EEI__
+			- execution environment interface
+				- like hardware or the LINUX application binary interface
+		- __multiplex__
+	- an __accelerator__ is a non-programmable fixed-function unit that is specialized and operates autonomously
+- ## RISC-V software execution environments
+	- the behavior depends on the execution environment it runs on.
+	- we are trying to implement CPU on FPGA
+- ## RISC-V overview
+	- base integer ISA
+	- ### XLEN
+		- the width of an integer register in bits (either 32 or 654)
+	- ### opcode
+		- enumerated value that specifies an operation to be performed
+			- (value assigned to an instruction)
+- ## memory
+	- RISC-V hart has single byte addressable space of $2^{XLEN}$ bytes for all memory accesses
+	- __word__ (of memory)
+		- 32 bits
+		- 4 bytes
+	- memory is CIRCULAR buddy. kind of like circular array.
+	- byte $2^{XLEN} -1$ is adjacent to byte $0$ 
+	- memory address computations IGNORE overflow and wrap around modulo $2^{XLEN}$ 
+	- a HART may contain main memory or one or more I/O devices.
+	- if a "RISC-V platform" has multiple harts, the address spaces of any two harts may all intersect, partially intersect, or not intersect at all..
+	- "For a purely "bare metal" environment, all harts may see an identical address space, accessed entirely by physical addresses. However, when the exectuion environment includes an operating system employing address translation, it is common for each hart to be given a virutal address space that is largely or entirely its own."
+	- ## note:
+		- executing a RISC-V machine instruction entails ONE or MORE memory accesses (subdivided into implicit and explicit accesses)
+			- implicit accesses are when (instruction fetch) an encoded execution is fetched (__read__)
+				- 
+			- explicit accesses are when specific when instructions perform a read or write at an address designated by the instruction itself
+		- the execution environment determines how much memory is available and where memory can be retrieved
+- ## Base instruction Length Encoding
+	- the base RISC-V ISA has fixed-length 32 bit instructions
+		- instructions 
+			- 32 bits wide
+			- lowest bit is set to 11
+			- little-endian based
+				- least significant byte at the smallest address, as opposed to most significant byte at the smallest address.
+- # Exceptions, Traps, and Interrupts
+	- exceptions are unusual conditions that occur at run time (with an instruction in the current RISC-V hart)
+	- interrupts are external asynchronous events that may cause a RISC-V hart to experience an unexpected transfer of control.
+	- traps are the transfer of control to a trap handler caused by an exception or interrupt
+	- ## Contained Trap
+		- visible, and is usually handled by software running inside execution environment
+	- ## Requested Trap
+		- a synchronous exception, which is an explicit call to the execution environment requesting an action on behalf of software inside execution environment
+			- i.e a system call
+	- ## Invisible Trap
+		- handled transparently by the execution environment and execution resumes normally after the trap is handled
+			- i.e 
+				- emulating missing instructions
+				- handling device interrupts for a different job in a multi-programmed machine
+	  - ## Fatal Trap
+		  - fatal, causing the execution environment to terminate execution.
+			  - i.e 
+				  - failing a virutal-memory page-protection check
+				  - allowing a watch-dog timer to expire
+			- EACH Execution Environment Interface(EEI) defines how execution is terminated and reported to an external environment
+
