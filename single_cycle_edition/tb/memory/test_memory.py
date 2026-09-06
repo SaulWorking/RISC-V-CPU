@@ -47,7 +47,7 @@ async def memory_data_test(dut):
         await RisingEdge(dut.clk)
 
         #verify the write reading back
-        dut.address.value =address
+        dut.address.value = address
         await RisingEdge(dut.clk)
         assert dut.read_data.value == data
 
