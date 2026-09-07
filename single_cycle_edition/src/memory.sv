@@ -1,4 +1,4 @@
-module instruction_memory #(
+module memory #(
     parameter WORDS = 64
 ) (
     // little endian notation
@@ -20,7 +20,7 @@ module instruction_memory #(
 
 // WORD is 4 bytes word
 
-reg [31:0] mem [0:WORDS-1] // array of WORDS, of size WORD 
+reg [31:0] mem [0:WORDS-1]; // array of WORDS, of size WORD 
 
 
 //sequential logic, use non-blocking <=
@@ -53,8 +53,5 @@ end
 always_comb begin
     read_data = mem[address[31:2]];
 end
-
-endmodule
-
 
 endmodule
