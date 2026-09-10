@@ -1,3 +1,4 @@
+`timescale 1ns/1ns
 module memory #(
     parameter WORDS = 64
 ) (
@@ -37,9 +38,10 @@ always @(posedge clk) begin
 
         // align address to word boundary
         // last 2 bits of word means it is divisible by 4
+            // (it doesnt include 2 and 1)
 
         if (address[1:0] == 2'b00) begin
-            //we index memory by [31:2]
+            /* verilator lint_off WIDTHTRUNC */
             mem[address[31:2]] <= write_data;
         end
     end
