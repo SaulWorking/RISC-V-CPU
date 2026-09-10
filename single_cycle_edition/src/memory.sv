@@ -1,4 +1,4 @@
-`timescale 1ns/1ns
+`timescale 1s/1ms
 module memory #(
     parameter WORDS = 64
 ) (
@@ -14,12 +14,12 @@ module memory #(
 
 /*
 * memory is byte addressed for our particular cases
-*   - each memory address is 8 bits of data
+*   each memory address is 8 bits of data
 * currently, there is no solution for mis-aligned write + read
 */
 
 
-// WORD is 4 bytes word
+// WORD is 4 bytes
 
 reg [31:0] mem [0:WORDS-1]; // array of WORDS, of size WORD 
 
@@ -45,12 +45,13 @@ always @(posedge clk) begin
             mem[address[31:2]] <= write_data;
         end
     end
+
 end
 
 
-//mem[address[31:2]] added to sensitivity list
+// mem[address[31:2]] added to sensitivity list
 
-//@ t=0, read_data = x
+// @ t=0, read_data = 32'b0;
 
 always_comb begin
     read_data = mem[address[31:2]];

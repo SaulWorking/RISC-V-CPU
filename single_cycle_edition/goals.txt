@@ -8,6 +8,7 @@ what are we doing?
 	we will be using SystemVerilog for the underlying logic of the CPU
 	we will use DDCA lectures chapter 7
 	we will be using Verilator and Cocotb to test 
+		(i will be using just verilator)
 
 - project suggestions:
 	use linux (i will be using windows subsystem for linux (WSL))
@@ -28,5 +29,7 @@ what are we doing?
 	x9 -> 01001 (rs1, a register)
 	I-type -> 0000011 (op-code, or operation type)
 
+- end goal:
+	rewrite all test benches to meet UVM standard
 
-	www.seas.upenn.edu/~cis2400/24fa/slides/lecture14.pdf
+

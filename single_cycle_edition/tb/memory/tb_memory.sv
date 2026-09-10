@@ -39,6 +39,7 @@ module tb_memory();
     .read_data(rd)
     );
 
+    const int sizeByte = 4;
     logic [31:0] test_data [3:0] = '{32'hDEADBEEF, 32'hCAFECAFE, 32'h12345678, 32'h67676767};
 
     initial begin : main
@@ -65,9 +66,9 @@ module tb_memory();
         end
 
 
-        for(int i = 0; i<4; i++) begin        
+        for(int i = 0; i<sizeByte; i++) begin        
             @(posedge clk);
-            addy    = 32'(i*4);
+            addy    = 32'(i*sizeByte);
             wd      = test_data[i];
             w_enable = 1;
 
@@ -85,8 +86,8 @@ module tb_memory();
 
 
     
-        for(int i = 0; i<4; i++) begin        
-            addy    = 32'(i*4);
+        for(int i = 0; i<sizeByte; i++) begin        
+            addy    = 32'(i*sizeByte);
             wd      = i + 100;
             w_enable = 1;
             $display("WRITING %d to %b!",wd, addy);
@@ -95,8 +96,8 @@ module tb_memory();
 
             w_enable = 0;
 
-        for(int i = 0; i<4; i++) begin        
-            addy    = 32'(i*4);
+        for(int i = 0; i<sizeByte; i++) begin        
+            addy    = 32'(i*sizeByte);
             @(posedge clk);
             if(rd == i + 100) begin
                 $display("READ/WRITE SUCESSS: %d", rd);
