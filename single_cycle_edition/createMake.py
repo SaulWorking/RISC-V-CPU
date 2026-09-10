@@ -23,14 +23,16 @@ file = open("Makefile", "w")
 file.writelines(["SIMULATOR ?= verilator\n", 
 	         "execute_flags += --binary -j 0 -Wall\n\n",
 	         "tb_src = " + "\"" + testBench + ".sv\"" + "\n\n",
- 		 "all:\n" + "\t$(SIMULATOR $(execute_flags) $(tb_src)\n",
-		 "\t./obj_dir/Vtb_" + testBench
+ 		       "all:\n" + "\t$(SIMULATOR $(execute_flags) $(tb_src)\n",
+		        "\t./obj_dir/Vtb_" + testBench
 		])
 file.close()
 
 endDir = "tb/" + testBench
 if os.path.isdir(endDir):
+ print("makefile created")
 	os.rename("Makefile", endDir + '/' + "Makefile");
 else:
+	print("ayo sus!! directory + makefile created")
 	os.mkdir(endDir)
 	os.rename("Makefile", endDir + '/' + "Makefile");
