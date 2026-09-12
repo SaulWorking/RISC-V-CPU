@@ -1,10 +1,6 @@
-#!/bin/bash
+create bash
 
-# verilator.org/guide/latest/install.html
+ask for Makefile download
+ask for verilator download
 
-apt-get install make
-apt-get install verilator
-
-
-
-
+check platform, Win11, Win10, linux distribution
