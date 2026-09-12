@@ -12,10 +12,6 @@
 
 class Vtb_memory__Syms;
 class Vtb_memory___024root;
-class Vtb_memory_std;
-class Vtb_memory_std__03a__03aprocess__Vclpkg;
-class Vtb_memory_std__03a__03asemaphore__Vclpkg;
-
 
 // This class is the main interface to the Verilated model
 class alignas(VL_CACHE_LINE_BYTES) Vtb_memory VL_NOT_FINAL : public VerilatedModel {
@@ -36,9 +32,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb_memory VL_NOT_FINAL : public VerilatedMod
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
-    Vtb_memory_std* const __PVT__std;
-    Vtb_memory_std__03a__03asemaphore__Vclpkg* const std__03a__03asemaphore__Vclpkg;
-    Vtb_memory_std__03a__03aprocess__Vclpkg* const std__03a__03aprocess__Vclpkg;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.

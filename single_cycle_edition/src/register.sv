@@ -1,5 +1,5 @@
 
-// this consists
+//
 module register(
 
 	// size of addresses are 5 bits wide
@@ -32,12 +32,12 @@ always @(posedge clk) begin
 		for(int i = 0; i < sizeReg; i++) begin
 			registers[i] = 32'b0;
 		end
-	end else if(write_enable == 1'b0 && address3 != 0)begin
+	end else if(write_enable == 1'b1 && address3 != 0)begin
 			registers[address3] <= write_data;	
 	end
+
 end
 		
-
 // generic reading logic
 // if address1 || address2 change then update
 

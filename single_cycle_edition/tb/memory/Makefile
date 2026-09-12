@@ -1,7 +1,6 @@
 SIMULATOR ?= verilator
-execute_flags += --binary --timing -j 0 -Wall --language 1800-2017
+execute_flags += --binary --timing -j 0 -Wall
 
-dut_src = "../../src/memory.sv"
 tb_src = "tb_memory.sv"
 
 all:

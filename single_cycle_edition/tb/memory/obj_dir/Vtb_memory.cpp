@@ -9,9 +9,6 @@
 Vtb_memory::Vtb_memory(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vtb_memory__Syms(contextp(), _vcname__, this)}
-    , __PVT__std{vlSymsp->TOP.__PVT__std}
-    , std__03a__03asemaphore__Vclpkg{vlSymsp->TOP.std__03a__03asemaphore__Vclpkg}
-    , std__03a__03aprocess__Vclpkg{vlSymsp->TOP.std__03a__03aprocess__Vclpkg}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
@@ -49,11 +46,11 @@ void Vtb_memory::eval_step() {
 #endif  // VL_DEBUG
     vlSymsp->__Vm_deleter.deleteAll();
     if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) {
+        vlSymsp->__Vm_didInit = true;
         VL_DEBUG_IF(VL_DBG_MSGF("+ Initial\n"););
         Vtb_memory___024root___eval_static(&(vlSymsp->TOP));
         Vtb_memory___024root___eval_initial(&(vlSymsp->TOP));
         Vtb_memory___024root___eval_settle(&(vlSymsp->TOP));
-        vlSymsp->__Vm_didInit = true;
     }
     VL_DEBUG_IF(VL_DBG_MSGF("+ Eval\n"););
     Vtb_memory___024root___eval(&(vlSymsp->TOP));
@@ -63,7 +60,7 @@ void Vtb_memory::eval_step() {
 
 //============================================================
 // Events and timing
-bool Vtb_memory::eventsPending() { return !vlSymsp->TOP.__VdlySched.empty() && !contextp()->gotFinish(); }
+bool Vtb_memory::eventsPending() { return !vlSymsp->TOP.__VdlySched.empty(); }
 
 uint64_t Vtb_memory::nextTimeSlot() { return vlSymsp->TOP.__VdlySched.nextTimeSlot(); }
 

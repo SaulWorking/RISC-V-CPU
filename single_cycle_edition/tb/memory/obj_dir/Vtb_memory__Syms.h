@@ -15,13 +15,9 @@
 
 // INCLUDE MODULE CLASSES
 #include "Vtb_memory___024root.h"
-#include "Vtb_memory___024unit.h"
-#include "Vtb_memory_std.h"
-#include "Vtb_memory_std__03a__03asemaphore__Vclpkg.h"
-#include "Vtb_memory_std__03a__03aprocess__Vclpkg.h"
 
 // SYMS CLASS (contains all model state)
-class alignas(VL_CACHE_LINE_BYTES) Vtb_memory__Syms final : public VerilatedSyms {
+class alignas(VL_CACHE_LINE_BYTES)Vtb_memory__Syms final : public VerilatedSyms {
   public:
     // INTERNAL STATE
     Vtb_memory* const __Vm_modelp;
@@ -30,16 +26,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb_memory__Syms final : public VerilatedSyms
 
     // MODULE INSTANCE STATE
     Vtb_memory___024root           TOP;
-    Vtb_memory_std                 TOP__std;
-    Vtb_memory_std__03a__03aprocess__Vclpkg TOP__std__03a__03aprocess__Vclpkg;
-    Vtb_memory_std__03a__03asemaphore__Vclpkg TOP__std__03a__03asemaphore__Vclpkg;
 
     // CONSTRUCTORS
     Vtb_memory__Syms(VerilatedContext* contextp, const char* namep, Vtb_memory* modelp);
     ~Vtb_memory__Syms();
 
     // METHODS
-    const char* name() const { return TOP.vlNamep; }
+    const char* name() { return TOP.name(); }
 };
 
 #endif  // guard
